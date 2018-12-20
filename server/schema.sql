@@ -1,4 +1,4 @@
-CREATE DATABASE chat;
+-- CREATE DATABASE chat;
 
 USE chat;
 
@@ -31,9 +31,9 @@ CREATE TABLE `rooms` (
   PRIMARY KEY (`id`)
 );
 
-ALTER TABLE `friends` ADD FOREIGN KEY (user) REFERENCES `users` (`id`);
-ALTER TABLE `messages` ADD FOREIGN KEY (user) REFERENCES `users` (`id`);
-ALTER TABLE `messages` ADD FOREIGN KEY (room) REFERENCES `rooms` (`id`);
+-- ALTER TABLE `friends` ADD FOREIGN KEY (user) REFERENCES `users` (`id`);
+-- ALTER TABLE `messages` ADD FOREIGN KEY (user) REFERENCES `users` (`id`);
+-- ALTER TABLE `messages` ADD FOREIGN KEY (room) REFERENCES `rooms` (`id`);
 
 /* Create other tables and define schemas for them here! */
 

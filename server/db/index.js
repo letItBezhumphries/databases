@@ -6,19 +6,13 @@ var mysql = require('mysql');
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'student',
-  password: 'student',
-  database: 'chat',
-  insecureAuth: true
+  user: 'root',
+  password: 'uAm7!g5fD?I5',
+  database: 'chat'
 });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
+// connection.connect();
 
-  console.log('connected as id ' + connection.threadId);
-});
+
 
 module.exports = connection;

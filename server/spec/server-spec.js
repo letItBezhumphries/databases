@@ -10,14 +10,13 @@ describe('Persistent Node Chat Server', function() {
 
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
-      user: 'student',
-      password: 'student',
+      host: 'localhost',
+      user: 'root',
+      password: 'uAm7!g5fD?I5',
       database: 'chat'
     });
     dbConnection.connect();
-
     var tablename = 'messages'; // TODO: fill this out
-
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
     dbConnection.query('truncate ' + tablename, done);
@@ -28,6 +27,7 @@ describe('Persistent Node Chat Server', function() {
   });
 
   it('Should insert posted messages to the DB', function(done) {
+    
     // Post the user to the chat server.
     request({
       method: 'POST',
@@ -50,10 +50,11 @@ describe('Persistent Node Chat Server', function() {
         // TODO: You might have to change this test to get all the data from
         // your message table, since this is schema-dependent.
         var queryString = 'SELECT * FROM messages';
-        var queryArgs = [];
+        var queryArgs = ['id', 'text', 'user', 'room'];
 
         dbConnection.query(queryString, queryArgs, function(err, results) {
           // Should have one result:
+          console.log('from testSpec', queryArgs);
           expect(results.length).to.equal(1);
 
           // TODO: If you don't have a column named text, change this test.
@@ -67,8 +68,8 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
-    var queryString = '';
-    var queryArgs = [];
+    var queryString = 'SELECT * FROM messages';
+    var queryArgs = ['id', 'text', 'user', 'room'];
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
     // them up to you. */
