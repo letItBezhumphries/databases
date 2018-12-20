@@ -3,19 +3,21 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function (callback) {
-      db.query('SELECT * FROM messages', function (error, results, fields) {
+    get: (callback) => {
+      db.query('SELECT * FROM messages', (error, results) => {
         if (error) { throw error; }
-        console.log('THE RESULTS:', results);   
-        //callback(null, results); //null as first arg
+        console.log('THE RESULTS IN GET:', results); 
+        callback(error, results); //null as first arg
       });
     }, // a function which produces all the messages from messages table
-    post: function (callback) {
-      db.query('INSERT INTO messages (id, text, user, room) VALUES (10, "One MORE another works more stuff!", 1, 1)', function (error, results, fields) { 
+    post: (callback) => {
+      db.query('INSERT INTO messages SET ?', results.insertId, (error, results, fields) => { 
         if (error) { throw error; }
-        console.log(error);
-        // callback(results);
-            
+        //'INSERT INTO messages VALUES()
+        //INSERT INTO messages (id, text, user, room) VALUES (1, "In mercy\'s name, three days is all I need.", 1, 1);
+        console.log('THIS IS results.insertId: ', results.insertId);
+        console.log('THE RESULTS IN POST:', results); 
+        callback(error, results);    
       });
     } // a function which can be used to insert a new message into the messages table
     
