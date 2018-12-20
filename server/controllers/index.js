@@ -1,18 +1,36 @@
 var models = require('../models');
+const parser = require('body-parser');
+var request = require('request');
+
+var defaultCorsHeaders = {
+  'access-control-allow-origin': '*', //
+  'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'access-control-allow-headers': 'content-type, accept',
+  'access-control-max-age': 10, // Seconds.
+  'Content-Type': 'application/json'
+};
 
 module.exports = {
   messages: {
     get: function (req, res) {
-      console.log(req.body);
-
-      //this is a SELECT wrapped in express request
+      console.log('GETTING MESSAGES:', req.body);
+      models.messages.get((err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(JSON.stringify(results));
+        } 
+      });
     }, // a function which handles a get request for all messages
     post: function (req, res) {
-      console.log('1: NPM TESTING: ', req.body);  
-      console.log('2: NPM TESTING: %s %s', req.method, req.path);
+      models.messages.post(body, (err, results) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.end(JSON.stringify(results));
+        }
+      });
     } // a function which handles posting a message to the database
-    // some form of database UPDATE wrapped in javascript express
-    //  router.post('/messages', controller.messages.post);
   },
 
   users: {

@@ -4,21 +4,38 @@ var mysql = require('mysql');
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'student',
-  password: 'student',
+var connection = mysql.createConnection({
+  user: 'eric',
+  password: 'chalon',
   database: 'chat',
-  insecureAuth: true
+  debug: true
 });
 
-connection.connect(function(err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
+//maybe module.exports.
+// class Database {
+//   constructor(config) {
+//     this.connection = mysql.createConnection(config);
+//   }
+//   query(sqlString, args) {
+//     return new Promise((resolve, reject) => {
+//       this.connection.query(sqlString, args, (err, rows) => {
+//         if(err) {
+//           return reject(err); 
+//         } else resolve(rows);
+//       });
+//     });
+//   }
+//   close() {
+//     return new Promise((resolve, reject) => {
+//       this.connection.end(err => {
+//         if(err) 
+//           return reject(err);
+//           resolve()
+//       });
+//     });
+//   }
+// }
 
-  console.log('connected as id ' + connection.threadId);
-});
+
 
 module.exports = connection;
