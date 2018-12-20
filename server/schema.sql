@@ -34,6 +34,7 @@ CREATE TABLE `rooms` (
 -- ALTER TABLE `friends` ADD FOREIGN KEY (user) REFERENCES `users` (`id`);
 -- ALTER TABLE `messages` ADD FOREIGN KEY (user) REFERENCES `users` (`id`);
 -- ALTER TABLE `messages` ADD FOREIGN KEY (room) REFERENCES `rooms` (`id`);
+-- ALTER TABLE table_name AUTO_INCREMENT = start_value;
 
 /* Create other tables and define schemas for them here! */
 
