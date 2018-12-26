@@ -15,8 +15,12 @@ module.exports = {
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       console.log('inside the post request');
-      var params = [ req.body[text], req.body[username], req.body[roomname] ];
+      // res.type('plain/text');
+      var message = req.body;
+      console.log(message[0]);
+      var params = [ req.body['text'], req.body['username'], req.body['roomname'] ];
       models.messages.post(params, (err, results) => {
+        console.log('&&&&&&&&', results);
         if (err) {
           console.log(err);
         } else {

@@ -50,14 +50,14 @@ describe('Persistent Node Chat Server', function() {
         // var userid = 3;
         // var columns = ['text', 'roomname'];
         // var queryString = 'SELECT * FROM messages;';
-        var queryString = 'SELECT messages.id, messages.text, messages.roomname FROM messages';
+        var queryString = 'SELECT messages.id, messages.text, messages.roomname FROM messages;';
         // var queryString = 'SELECT ?? FROM ?? WHERE id = ?';
         // var queryArgs = [columns, 'messages', userid];
         var queryArgs = ['In mercy\'s name, three days is all I need.'];
-        var queryArgs = [];
-        dbConnection.query(queryString, queryArgs, function(err, results) {
+        // var queryArgs = [];
+        dbConnection.query(queryString, queryArgs, function(err, results, fields) {
           // Should have one result:
-          console.log('^^^^^^^', results[0]);
+          console.log('^^^^^^^', results);
           expect(results.length).to.equal(1); 
           // TODO: If you don't have a column named text, change this test.
           expect(results[0].text).to.equal('In mercy\'s name, three days is all I need.');
@@ -85,7 +85,7 @@ describe('Persistent Node Chat Server', function() {
         console.log('$$$$', JSON.parse(body));
         var messageLog = JSON.parse(body);
         // console.log('%%%%%%%', messageLog.length);
-        // console.log('********', messageLog[0].text);
+        console.log('********', messageLog[0].text);
         expect(messageLog[0].text).to.equal('Men like you can never change!');
         expect(messageLog[0].roomname).to.equal('main');
         done();
