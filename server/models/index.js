@@ -1,31 +1,38 @@
 var db = require('../db');
-
-
+   
 
 module.exports = {
   messages: {
-    get: (callback) => {
-      db.query('SELECT messages.id, messages.message, messages.roomname FROM messages', (error, results) => {
-        if (error) { throw error; }
-        console.log('THE RESULTS IN GET:', results); 
-        callback(error, results); //null as first arg
+    get: function(callback) { // a function which produces all the messages from messages table
+      var queryStr = 'SELECT messages.id, messages.text, messages.roomname FROM messages \
+                      LEFT OUTER JOIN users ON (messages.userid = users.id) \
+                      ORDER BY messages.id DESC';
+      db.query(queryStr, function(error, results) {        
+        callback(error, results); 
       });
-    }, // a function which produces all the messages from messages table
-    post: (callback) => {
-      db.query('INSERT INTO messages SET ?', results.insertId, (error, results, fields) => { 
-        if (error) { throw error; }
-        console.log('THE RESULTS IN POST:', results); 
-        console.log('FIELDS IN POST', fields);
+    }, 
+    post: (params, callback) => { //add message from params to the database
+      console.log('&&&&&&&', params);
+      var queryStr = 'INSERT INTO messages(text, userid, roomname) VALUES(?, (SELECT id FROM users WHERE username = ? LIMIT 1), ?)';
+      db.query(queryStr, params, function(error, results) { 
         callback(error, results);    
       });
-    } // a function which can be used to insert a new message into the messages table
-    
+    } 
   },
 
   users: {
-    // Ditto as above.
-    get: function () {}, //getting all the messages from a user specified
-    post: function () {} //posting a new user to user tables 
+    get: function (callback) { //getting all the users in users table
+      var queryStr = 'SELECT * FROM users';
+      db.query(queryStr, (err, results) => {
+        callback(err, results);
+      });
+    }, 
+    post: (params, callback) => { //creating a new user and adding to users tables 
+      var queryStr = 'INSERT INTO users(id, username) VALUES (null, ?)';
+      db.query(queryStr, params, (err, results) => {
+        callback(err, results);
+      });
+    } 
   }
 };
 
