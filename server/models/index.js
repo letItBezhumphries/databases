@@ -12,7 +12,6 @@ module.exports = {
       });
     }, 
     post: (params, callback) => { //add message from params to the database
-      console.log('&&&&&&&', params);
       var queryStr = 'INSERT INTO messages(text, userid, roomname) VALUES(?, (SELECT id FROM users WHERE username = ? LIMIT 1), ?)';
       db.query(queryStr, params, function(error, results) { 
         console.log('^^^^^', params);
