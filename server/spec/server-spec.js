@@ -53,15 +53,13 @@ describe('Persistent Node Chat Server', function() {
         var queryString = 'SELECT messages.id, messages.text, messages.roomname FROM messages;';
         // var queryString = 'SELECT ?? FROM ?? WHERE id = ?';
         // var queryArgs = [columns, 'messages', userid];
-        var queryArgs = ['In mercy\'s name, three days is all I need.'];
-        // var queryArgs = [];
+        var queryArgs = [];
         dbConnection.query(queryString, queryArgs, function(err, results, fields) {
           // Should have one result:
           console.log('^^^^^^^', results);
           expect(results.length).to.equal(1); 
           // TODO: If you don't have a column named text, change this test.
           expect(results[0].text).to.equal('In mercy\'s name, three days is all I need.');
-
           done();
         });
       });
@@ -93,14 +91,15 @@ describe('Persistent Node Chat Server', function() {
     });
   });
 
-  // it('Should output users from the DB', function(done) {
-  //   request('http://127.0.0.1:3000/classes/users', function(error, response, body) {
-  //     var users = JSON.parse(body);
-  //     expect(users.results[0].username).to.equal('eric');
-  //     expect(users.results[1].username).to.equal('duncan');
-  //     expect(users.results[2].username).to.equal('Valjean');
-  //     done();
-  //   });
-  // });
+  it('Should output users from the DB', function(done) {
+    request('http://127.0.0.1:3000/classes/users', function(error, response, body) {
+      var users = JSON.parse(body);
+      console.log('********', users);
+      expect(users[0].username).to.equal('eric');
+      expect(users[1].username).to.equal('duncan');
+      expect(users[2].username).to.equal('Valjean');
+      done();
+    });
+  });
 
 });
